@@ -1,7 +1,6 @@
 <script>
 function xoadanhmuc() {
-    var conf = confirm("Bạn có chắc chắn muốn xóa mục này hay không?");
-    return conf;
+    return confirm("Bạn có chắc chắn muốn xoá");
 }
 </script>
 <!DOCTYPE html>
@@ -28,30 +27,27 @@ function xoadanhmuc() {
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM danhmuc ORDER BY id_dm";
-                    $query = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($query) > 0) {
-                        while ($row = mysqli_fetch_array($query)) {
+                    $danhsachdanhmuc = new Danhmuc($conn);
+                    $danhMucList = $danhsachdanhmuc->layDanhSachDanhMuc();
+                    foreach ($danhMucList as $danhMuc) {
                     ?>
                     <tr>
-                        <td><?php echo $row['id_dm']; ?></td>
-                        <td><?php echo $row['tendm']; ?></td>
-                        <td><a href="index.php?page_layout=suadanhmuc&id_dm=<?php echo $row['id_dm']; ?>"
-                                class='edit'>Sửa</a></td>
+                        <td><?php echo $danhMuc['id_dm']; ?></td>
+                        <td><?php echo $danhMuc['tendm']; ?></td>
                         <td>
-                            <a onclick="return xoadanhmuc();"
-                                href="./danhmuc/xoadanhmuc.php?id_dm=<?php echo $row['id_dm']; ?>"
+                            <a href="index.php?page_layout=suadanhmuc&id_dm=<?php echo $danhMuc['id_dm']; ?>"
+                                class='edit'>Sửa</a>
+                        </td>
+                        <td>
+                            <a onclick="return xoadanhmuc()"
+                                href="./danhmuc/xoadanhmuc.php?id_dm=<?php echo $danhMuc['id_dm']; ?>"
                                 class='delete'>Xóa</a>
+
                         </td>
                     </tr>
                     <?php
-                        }
                     }
-                    else {
-                        echo "<tr>
-                            <td colspan='7'>Không có sản phẩm nào</td>
-                        </tr>";
-                        }
+                    mysqli_close($conn);
                     ?>
                 </tbody>
             </table>

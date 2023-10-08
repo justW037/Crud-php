@@ -14,12 +14,13 @@
 </div>
 
 <?php 
-if (isset($_POST['submit'])){
-  $tendm = $_POST['tendm'];
-  if(isset($tendm)) {
-    $sql="INSERT INTO danhmuc(tendm) VALUES ('$tendm')";
-    $query = mysqli_query($conn, $sql);
-    header('Location: ./index.php?page_layout=danhmuc');
+  if (isset($_POST['submit'])){
+    $tendm = $_POST['tendm'];
+    $danhMuc = new Danhmuc($conn);
+    $result = $danhMuc->themDanhMuc($tendm);
+      if ($result) {
+          header('Location: ./index.php?page_layout=danhmuc');
+          exit;
+      }
   }
-}
 ?>

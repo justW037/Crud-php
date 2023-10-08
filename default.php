@@ -1,1 +1,0 @@
-<?php  echo "Lỗi rồi" ?>

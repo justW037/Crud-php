@@ -1,21 +1,21 @@
 <?php
 $id_dm = $_GET['id_dm'];
 
-$sql = "SELECT * FROM danhmuc WHERE id_dm = '$id_dm'";
-$query = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($query);
-if (!$row) {
+$danhmuc = new Danhmuc($conn);
+$laydanhmuc = $danhmuc->layDanhMuc($id_dm);
+if (!$laydanhmuc) {
     header('Location: error.php');
     exit;
 }
 
 if (isset($_POST['submit'])) {
     $tendm = $_POST['tendm'];
-    $sql_update = "UPDATE danhmuc SET tendm = '$tendm' WHERE id_dm = '$id_dm'";
-    $query_update = mysqli_query($conn, $sql_update);
+    $result = $danhmuc->suaDanhMuc($id_dm, $tendm);
 
-    header('Location: ./index.php?page_layout=danhmuc');
-    exit;
+    if ($result) {
+        header('Location: ./index.php?page_layout=danhmuc');
+        exit;
+    }
 }
 ?>
 
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
         <div class="main-m">
             <form role="form" method="post">
                 <label>Tên danh mục</label>
-                <input type="text" name="tendm" value="<?php echo $row['tendm']; ?>" required>
+                <input type="text" name="tendm" value="<?php echo $laydanhmuc['tendm']; ?>" required>
                 <button type="submit" name="submit">Lưu</button>
             </form>
         </div>

@@ -9,57 +9,39 @@
 </head>
 
 <body>
-    <form action="login.php" method="post">
-        Username: <input type="text" name="username" size="25" /><br />
-        Password: <input type="password" name="password" size="25" /><br />
-        <input type="submit" name="ok" value="Đăng nhập" class="btn btn-primary" />
+    <form method="POST" action="" class="form-group">
+        <label for="username">Tên đăng nhập:</label>
+        <input type="text" name="username" class="form-control" required>
+        <label for="password">Mật khẩu:</label>
+        <input type="password" name="password" class="form-control" required>
+        <button type="submit" id="button" class="btn btn-primary">Đăng nhập</button>
     </form>
 
 </body>
 
 </html>
 <?php
-session_start();
+    session_start();
+    $conn = mysqli_connect('localhost', 'root', '', 'nguoidung');
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['username'] = $username;
 
-if (isset($_POST['ok'])) {
-    $u = $p = "";
-
-    if ($_POST['username'] == "") {
-        echo "Vui lòng nhập tài khoản.<br />";
-    } else {
-        $u = $_POST['username'];
-    }
-
-    if ($_POST['password'] == "") {
-        echo "Vui lòng nhập mật khẩu.<br />";
-    } else {
-        $p = $_POST['password'];
-    }
-
-    if (!empty($u) && !empty($p)) {
-        $conn = mysqli_connect("localhost", "root", "", "nguoidung") or die("Không thể kết nối đến cơ sở dữ liệu.");
-        $u = mysqli_real_escape_string($conn, $u);
-        $p = mysqli_real_escape_string($conn, $p);
-
-        $sql = "SELECT * FROM users WHERE username='" . $u . "' AND password='" . $p . "'";
-        $query = mysqli_query($conn, $sql);
-
-        if ($query) {
-            if (mysqli_num_rows($query) == 0) {
-                echo "<p>Tài khoản hoặc mật khẩu không đúng.</p>";
+            echo "đăng nhập thành công";
+            if ($row['level'] == 2) {
+                $_SESSION['level'] = 2;
+               header("Location: index.php"); 
             } else {
-                $row = mysqli_fetch_assoc($query);
-                $_SESSION['userid'] = $row['id'];
-                $_SESSION['level'] = $row['level'];
-                echo "Đăng nhập thành công!";
-                header('Location: index.php');
-                exit();
+                header("Location: userPage.php");
             }
         } else {
-            echo "Lỗi truy vấn: " . mysqli_error($conn);
+            echo "Tên đăng nhập hoặc mật khẩu không đúng.";
         }
-
-        mysqli_close($conn);
     }
-}
+    mysqli_close($conn);
 ?>

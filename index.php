@@ -1,11 +1,9 @@
 <?php
 session_start();
 $conn = mysqli_connect('localhost', 'root', '', 'nguoidung');
-// Kiểm tra kết nối
 if (!$conn) {
   die("Không thể kết nối: " . mysqli_connect_error());
 }
-
 if (!isset($_SESSION['userid'])) {
   header('location: login.php');
   exit;
@@ -94,6 +92,7 @@ if (!isset($_SESSION['userid'])) {
 </html>
 
 <?php
+include './danhmuc/classdanhmuc.php';
 if (isset($_GET['page_layout'])) {
   switch ($_GET['page_layout']) {
     case 'danhmuc':
@@ -127,6 +126,6 @@ if (isset($_GET['page_layout'])) {
       include_once 'index.php';
   }
 } else {
-  include_once 'default.php';
+  echo "Xảy ra lỗi!";
 }
 ?>
