@@ -1,8 +1,3 @@
-<script>
-function xoadanhmuc() {
-    return confirm("Bạn có chắc chắn muốn xoá");
-}
-</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,8 +10,9 @@ function xoadanhmuc() {
 <body>
     <div class="main">
         <h1>Quản lý danh mục</h1>
+        <a href="index.php?page_layout=themdanhmuc" class="btn btn-success">Thêm danh mục</a>
         <div class="container">
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -36,12 +32,12 @@ function xoadanhmuc() {
                         <td><?php echo $danhMuc['tendm']; ?></td>
                         <td>
                             <a href="index.php?page_layout=suadanhmuc&id_dm=<?php echo $danhMuc['id_dm']; ?>"
-                                class='edit'>Sửa</a>
+                                class='btn btn-primary'>Sửa</a>
                         </td>
                         <td>
-                            <a onclick="return xoadanhmuc()"
+                            <a onclick="return xacNhanXoa()"
                                 href="./danhmuc/xoadanhmuc.php?id_dm=<?php echo $danhMuc['id_dm']; ?>"
-                                class='delete'>Xóa</a>
+                                class='btn btn-danger'>Xóa</a>
 
                         </td>
                     </tr>
@@ -51,9 +47,9 @@ function xoadanhmuc() {
                     ?>
                 </tbody>
             </table>
-            <a href="index.php?page_layout=themdanhmuc" class="button-add">Thêm danh mục</a>
         </div>
     </div>
 </body>
+<script src="../js/app.js"></script>
 
 </html>

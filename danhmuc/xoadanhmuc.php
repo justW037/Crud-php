@@ -1,6 +1,6 @@
 <?php  
 	session_start();
-	require './classdanhmuc.php';
+	include './classdanhmuc.php';
 	if($_SESSION['level'] == 2){
 		$id_dm = $_GET['id_dm'];
 		$conn = mysqli_connect('localhost', 'root', '', 'nguoidung');

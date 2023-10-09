@@ -22,6 +22,13 @@ class Danhmuc
         }
         return $danhMucList;
     }
+    public function checkTonTai($tendm) {
+        $sql = "SELECT id_dm FROM danhmuc WHERE tendm = '$tendm'";
+        $query = mysqli_query($this->conn, $sql);
+        if(mysqli_num_rows($query) > 0) {
+            return true;
+        }
+    }
     public function themDanhMuc($tendm){
         $sql = "INSERT INTO danhmuc(tendm) VALUES ('$tendm')";
         $query = mysqli_query($this->conn, $sql);

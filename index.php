@@ -14,75 +14,17 @@ if (!isset($_SESSION['userid'])) {
 <html>
 
 <head>
-    <style>
-    /* CSS cho thanh slidebar */
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #f1f1f1;
-        position: fixed;
-        top: 0;
-        left: 0;
-        overflow-x: hidden;
-        padding-top: 20px;
-    }
-
-    .sidebar h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        text-transform: uppercase;
-        font-size: 20px;
-        border-bottom: 1px solid #000;
-    }
-
-    .sidebar ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .sidebar li {
-        padding: 10px;
-        font-size: 18px;
-
-    }
-
-    .sidebar li:hover {
-        background-color: #ddd;
-        cursor: pointer;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    .sidebar h2 a {
-        color: #000;
-    }
-
-    .sidebar li a {
-        color: #000;
-        display: block;
-    }
-
-    .main {
-        margin-left: 250px;
-    }
-
-    .header {
-        text-align: center;
-    }
-    </style>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.2/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="sidebar">
-        <h2>Trang quản trị</h2>
+        <h2>H-zone</h2>
         <ul>
             <li><a href="index.php?page_layout=danhmuc">Quản lý danh mục</a></li>
             <li><a href="index.php?page_layout=sanpham">Quản lý sản phẩm</a></li>
-            <li><a href="index.php?page_layout=thongtin">Quản lý thành viên</a></li>
+            <li><a href="index.php?page_layout=nguoidung">Quản lý thành viên</a></li>
         </ul>
     </div>
 </body>
@@ -93,6 +35,8 @@ if (!isset($_SESSION['userid'])) {
 
 <?php
 include './danhmuc/classdanhmuc.php';
+include './sanpham/classsanpham.php';
+include './nguoidung/classuser.php';
 if (isset($_GET['page_layout'])) {
   switch ($_GET['page_layout']) {
     case 'danhmuc':
@@ -113,19 +57,19 @@ if (isset($_GET['page_layout'])) {
     case 'suasanpham':
       include_once 'sanpham/suasanpham.php';
       break;
-    case 'locsanpham':
-      include_once 'sanpham/locsanpham.php';
+    case 'nguoidung':
+      include_once 'nguoidung/nguoidung.php';
       break;
-    case 'timkiemsp':
-      include_once 'sanpham/timkiemsanpham.php';
-      break;
-    case 'thongtin':
-      include_once 'nguoidung/thongtin.php';
-      break;
+    case 'themnguoidung':
+        include_once 'nguoidung/themnguoidung.php';
+    break;
+    case 'suanguoidung':
+        include_once 'nguoidung/suanguoidung.php';
+    break;
     default:
       include_once 'index.php';
   }
 } else {
-  echo "Xảy ra lỗi!";
+  echo "<h1>Trang bán thiết bị điện tử H-zone";
 }
 ?>

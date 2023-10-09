@@ -4,7 +4,77 @@
     text-decoration: none;
     list-style: none;
     color: black;
+    font-family: Arial, Helvetica, sans-serif;
 }
 html{
     font-size: 20;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    margin: 20% 40%;
+    width: 50vw;
+    
+}
+.sidebar {
+    background-color: white;
+    width: 17vw;
+}
+.sidebar h2 {
+    color: white;
+    background-color: black;
+    padding: 20px;
+}
+.sidebar ul {
+    font-size: 20px; 
+    padding-left: 0px;
+}
+.sidebar ul li a{
+    color:black;
+    text-decoration: none;
+}
+.sidebar ul li{
+    padding: 10px 20px;
+}
+.sidebar ul li:hover{
+    background-color: grey;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+.main {
+    padding: 20px;
+    width: 85vw;
+    background-color: #F7FAFC;
+}
+.search-filter form {
+    display: flex;
+    flex-direction: row;
+    width: 25vw;
+    gap: 10px;
+}
+
+.search-filter form input {
+    flex:7.5;
+}
+.search-filter form button {
+    flex:2.5;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    justify-content: space-between;
+}
+
+.container-form { 
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

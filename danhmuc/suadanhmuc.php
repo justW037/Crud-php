@@ -1,8 +1,8 @@
 <?php
 $id_dm = $_GET['id_dm'];
 
-$danhmuc = new Danhmuc($conn);
-$laydanhmuc = $danhmuc->layDanhMuc($id_dm);
+$danhMuc = new Danhmuc($conn);
+$laydanhmuc = $danhMuc->layDanhMuc($id_dm);
 if (!$laydanhmuc) {
     header('Location: error.php');
     exit;
@@ -10,11 +10,16 @@ if (!$laydanhmuc) {
 
 if (isset($_POST['submit'])) {
     $tendm = $_POST['tendm'];
-    $result = $danhmuc->suaDanhMuc($id_dm, $tendm);
-
-    if ($result) {
-        header('Location: ./index.php?page_layout=danhmuc');
-        exit;
+    $result = $danhMuc->checkTonTai($tendm);
+    if($result){
+        echo "<h1>Danh mục đã tồn tại.</h1>";
+    }
+    else {
+        $result2 = $danhMuc->suaDanhMuc($id_dm, $tendm);
+        if ($result2) {
+            header('Location: ./index.php?page_layout=danhmuc');
+            exit;
+        }
     }
 }
 ?>
@@ -28,8 +33,6 @@ if (isset($_POST['submit'])) {
     <title>Sửa danh mục</title>
 </head>
 
-
-
 <body>
     <div class="main">
         <div class="header1">
@@ -38,10 +41,13 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
         <div class="main-m">
+            <a href="./index.php?page_layout=danhmuc"><button type="button" class="btn btn-dark">Quay
+                    lại</button></a>
             <form role="form" method="post">
-                <label>Tên danh mục</label>
-                <input type="text" name="tendm" value="<?php echo $laydanhmuc['tendm']; ?>" required>
-                <button type="submit" name="submit">Lưu</button>
+                <label style="margin: 5px; float: left">Tên danh mục</label>
+                <input type="text" name="tendm" value="<?php echo $laydanhmuc['tendm']; ?>" class="form-control"
+                    style="width: 25vw; float: left; margin-right: 20px" required>
+                <button type="submit" name="submit" class="btn btn-primary">Lưu</button>
             </form>
         </div>
     </div>
